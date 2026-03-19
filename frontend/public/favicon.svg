@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Gauge icon">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f4a261" />
+      <stop offset="100%" stop-color="#264653" />
+    </linearGradient>
+  </defs>
+  <circle cx="64" cy="64" r="58" fill="#101820" />
+  <circle cx="64" cy="64" r="50" fill="none" stroke="url(#g)" stroke-width="10" />
+  <path d="M64 64L96 38" stroke="#f4a261" stroke-width="8" stroke-linecap="round" />
+  <circle cx="64" cy="64" r="8" fill="#e9c46a" />
+</svg>
+
