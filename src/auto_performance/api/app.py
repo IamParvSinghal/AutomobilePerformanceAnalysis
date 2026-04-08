@@ -7,6 +7,7 @@ from contextlib import asynccontextmanager
 from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from auto_performance.api.docs_page import render_docs_page
 from auto_performance.api.schemas import (
     BatchPredictionRequest,
     BatchPredictionResponse,
@@ -30,7 +31,12 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     yield
 
 
-app = FastAPI(title=APP_NAME, lifespan=lifespan)
+app = FastAPI(
+    title=APP_NAME,
+    lifespan=lifespan,
+    docs_url=None,
+    redoc_url=None,
+)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=cors_origins(),
@@ -42,6 +48,11 @@ app.add_middleware(
 
 def get_model_service() -> ModelService:
     return app.state.model_service
+
+
+@app.get("/docs", include_in_schema=False)
+def custom_docs():
+    return render_docs_page()
 
 
 @app.get("/", tags=["meta"])

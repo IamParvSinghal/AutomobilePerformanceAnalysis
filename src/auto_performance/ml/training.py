@@ -43,7 +43,6 @@ class CandidateScore:
     name: str
     description: str
     cv_rmse_mean: float
-    cv_rmse_std: float
     cv_mae_mean: float
     cv_r2_mean: float
 
@@ -86,7 +85,6 @@ def evaluate_candidates(
                 name=candidate.name,
                 description=candidate.description,
                 cv_rmse_mean=float(-scores["test_rmse"].mean()),
-                cv_rmse_std=float(scores["test_rmse"].std()),
                 cv_mae_mean=float(-scores["test_mae"].mean()),
                 cv_r2_mean=float(scores["test_r2"].mean()),
             )
@@ -200,47 +198,40 @@ def write_model_card(result: TrainingResult, metadata: dict[str, Any], path: Pat
             for item in result.feature_importance[:5]
         ]
     )
-    path.write_text(
-        "\n".join(
-            [
-                "# Model Card",
-                "",
-                f"- Selected model: `{result.selected_model}`",
-                f"- Test RMSE: `{result.test_rmse:.3f}`",
-                f"- Test MAE: `{result.test_mae:.3f}`",
-                f"- Test R²: `{result.test_r2:.3f}`",
-                "",
-                "## Candidate Benchmark",
-                "",
-                "| Model | CV RMSE | CV MAE | CV R² |",
-                "| --- | ---: | ---: | ---: |",
-                candidate_rows,
-                "",
-                "## Top Permutation Features",
-                "",
-                top_features,
-                "",
-                "## Operational Notes",
-                "",
-                (
-                    "- Dataset is stored locally in `data/raw/auto-mpg.data` to avoid "
-                    "runtime network dependencies."
-                ),
-                (
-                    "- Preprocessing is fit only on the training folds and train split "
-                    "to eliminate leakage."
-                ),
-                "- API contracts and frontend forms are aligned to the persisted metadata schema.",
-                "",
-                "## Example Request",
-                "",
-                "```json",
-                json.dumps(metadata["example_request"], indent=2),
-                "```",
-            ]
+    lines = [
+        "# Model Card",
+        "",
+        f"- Selected model: `{result.selected_model}`",
+        f"- Test RMSE: `{result.test_rmse:.3f}`",
+        f"- Test MAE: `{result.test_mae:.3f}`",
+        f"- Test R^2: `{result.test_r2:.3f}`",
+        "",
+        "## Candidate Benchmark",
+        "",
+        "| Model | CV RMSE | CV MAE | CV R^2 |",
+        "| --- | ---: | ---: | ---: |",
+        candidate_rows,
+        "",
+        "## Top Permutation Features",
+        "",
+        top_features,
+        "",
+        "## Operational Notes",
+        "",
+        (
+            "- Dataset is stored locally in `data/raw/auto-mpg.data` to avoid "
+            "runtime network dependencies."
         ),
-        encoding="utf-8",
-    )
+        "- Preprocessing is fit only on the training folds and train split to eliminate leakage.",
+        "- API contracts and frontend forms are aligned to the persisted metadata schema.",
+        "",
+        "## Example Request",
+        "",
+        "```json",
+        json.dumps(metadata["example_request"], indent=2),
+        "```",
+    ]
+    path.write_text("\n".join(lines), encoding="utf-8")
 
 
 def train_and_persist(

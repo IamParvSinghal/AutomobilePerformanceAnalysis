@@ -8,14 +8,15 @@ __pycache__/
 *.pyo
 *.pyd
 *.egg-info/
+*.tsbuildinfo
 
 node_modules/
 frontend/dist/
-
+frontend/vite.config.js
+frontend/vite.config.d.ts
 artifacts/*.joblib
 artifacts/*.json
 artifacts/*.md
-!artifacts/.gitkeep
 
 tmp_notebook_images/
 pytest-cache-files-*/

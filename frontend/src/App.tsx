@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 
 import { BenchmarkTable } from "./components/BenchmarkTable";
-import { FeatureImportanceChart } from "./components/FeatureImportanceChart";
 import { Hero } from "./components/Hero";
 import { PredictionForm } from "./components/PredictionForm";
 import { fetchModelInfo, predict } from "./lib/api";
@@ -74,17 +73,14 @@ export default function App() {
       <div className="content-stack">
         <Hero />
         {error ? <section className="inline-error">{error}</section> : null}
-        <div className="two-column-layout">
-          <PredictionForm
-            distanceUnit={distanceUnit}
-            metadata={modelInfo.metadata}
-            prediction={prediction}
-            isSubmitting={isSubmitting}
-            onDistanceUnitChange={setDistanceUnit}
-            onSubmit={handlePrediction}
-          />
-          <FeatureImportanceChart featureImportance={modelInfo.feature_importance} />
-        </div>
+        <PredictionForm
+          distanceUnit={distanceUnit}
+          metadata={modelInfo.metadata}
+          prediction={prediction}
+          isSubmitting={isSubmitting}
+          onDistanceUnitChange={setDistanceUnit}
+          onSubmit={handlePrediction}
+        />
         <BenchmarkTable
           candidates={modelInfo.metadata.evaluation.candidate_scores}
           selectedModel={modelInfo.metadata.selected_model}

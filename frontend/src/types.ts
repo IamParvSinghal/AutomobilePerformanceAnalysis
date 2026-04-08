@@ -21,7 +21,6 @@ export interface CandidateScore {
   name: string;
   description: string;
   cv_rmse_mean: number;
-  cv_rmse_std: number;
   cv_mae_mean: number;
   cv_r2_mean: number;
 }

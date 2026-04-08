@@ -10,7 +10,6 @@ Production-grade fuel efficiency prediction platform built from the UCI Auto MPG
 |-- data/
 |   |-- raw/auto-mpg.data       # Vendored source dataset
 |   `-- processed/              # Generated cleaned dataset
-|-- docs/architecture.md        # System design summary
 |-- frontend/                   # React + TypeScript client
 |-- src/auto_performance/       # Backend package, training pipeline, API
 |-- tests/                      # Backend and API tests
@@ -38,8 +37,7 @@ Production-grade fuel efficiency prediction platform built from the UCI Auto MPG
 
 The React client surfaces:
 
-- the selected production model
-- holdout metrics and data-quality stats
+- live vehicle scoring with miles/kilometers input support
 - cross-validated candidate comparison
 - permutation feature importance
 - an interactive scoring form powered by artifact metadata
@@ -79,7 +77,7 @@ docker compose up --build
 Services:
 
 - Frontend: [http://localhost:3000](http://localhost:3000)
-- Backend API: [http://localhost:8000/docs](http://localhost:8000/docs)
+- Backend API documentation: [http://localhost:8000/docs](http://localhost:8000/docs)
 
 ## Training outputs
 

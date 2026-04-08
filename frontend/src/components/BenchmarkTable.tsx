@@ -13,7 +13,10 @@ export function BenchmarkTable({ candidates, selectedModel }: BenchmarkTableProp
           <div className="eyebrow">Benchmarking</div>
           <h2>Cross-validated model comparison</h2>
         </div>
-        <p>The production model is selected from multiple candidates using the same evaluation workflow.</p>
+        <p>
+          The production model is selected from multiple candidates using the same evaluation
+          workflow.
+        </p>
       </div>
       <div className="table-wrap">
         <table>
@@ -23,7 +26,7 @@ export function BenchmarkTable({ candidates, selectedModel }: BenchmarkTableProp
               <th>Description</th>
               <th>CV RMSE</th>
               <th>CV MAE</th>
-              <th>CV R²</th>
+              <th>CV R^2</th>
             </tr>
           </thead>
           <tbody>
